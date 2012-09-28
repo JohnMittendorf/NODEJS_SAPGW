@@ -1,0 +1,53 @@
+{
+  "modules" : [
+    {
+      "name" : "sap.ui.table.Column",
+      "description" : "Provides control sap.ui.table.Column.",
+      "size" : 19245,
+      "required" : ["jquery.sap.global", "sap.ui.table.library", "sap.ui.core.Element", "sap.ui.core.RenderManager", "sap.ui.model.Filter", "sap.ui.model.Sorter", "sap.ui.commons.Image", "sap.ui.commons.Label", "sap.ui.commons.Menu", "sap.ui.commons.MenuItem", "sap.ui.commons.TextField"],
+      "includes" : []
+    },
+    {
+      "name" : "sap.ui.table.DataTable",
+      "description" : "Provides control sap.ui.table.DataTable.",
+      "size" : 77298,
+      "required" : ["jquery.sap.global", "sap.ui.table.library", "sap.ui.core.Control", "sap.ui.core.Popup", "sap.ui.commons.Label", "sap.ui.commons.Image", "sap.ui.core.delegate.ItemNavigation"],
+      "includes" : []
+    },
+    {
+      "name" : "sap.ui.table.DataTableRenderer",
+      "description" : "Provides default renderer for control sap.ui.table.DataTable",
+      "size" : 11304,
+      "required" : ["jquery.sap.global"],
+      "includes" : []
+    },
+    {
+      "name" : "sap.ui.table.Row",
+      "description" : "Provides control sap.ui.table.Row.",
+      "size" : 5418,
+      "required" : ["jquery.sap.global", "sap.ui.table.library", "sap.ui.core.Element"],
+      "includes" : []
+    },
+    {
+      "name" : "sap.ui.table.Table",
+      "description" : "Provides control sap.ui.table.Table.",
+      "size" : 82753,
+      "required" : ["jquery.sap.global", "sap.ui.table.library", "sap.ui.core.Control", "sap.ui.model.SelectionModel", "sap.ui.core.delegate.ItemNavigation", "sap.ui.core.theming.Parameters", "sap.ui.core.ScrollBar", "sap.ui.commons.TextView", "sap.ui.table.Row"],
+      "includes" : []
+    },
+    {
+      "name" : "sap.ui.table.TableRenderer",
+      "description" : "Provides default renderer for control sap.ui.table.Table",
+      "size" : 11851,
+      "required" : ["jquery.sap.global"],
+      "includes" : []
+    },
+    {
+      "name" : "sap.ui.table.library",
+      "description" : "Initialization Code and shared classes of library sap.ui.table (1.4.3)",
+      "size" : 2788,
+      "required" : ["jquery.sap.global", "sap.ui.core.Core", "sap.ui.core.library", "sap.ui.commons.library"],
+      "includes" : ["sap.ui.table.SelectionMode"]
+    }
+  ]
+}

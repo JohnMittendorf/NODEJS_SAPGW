@@ -1,0 +1,9 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+ * 
+ * (c) Copyright 2009-2012 SAP AG. All rights reserved
+ */
+jQuery.sap.declare("sap.ui.commons.LabelRenderer");jQuery.sap.require("sap.ui.core.Renderer");sap.ui.commons.LabelRenderer={};
+sap.ui.commons.LabelRenderer.render=function(o,l){var a=o;var r=sap.ui.commons.LabelRenderer;if(!l.getVisible()){return;}var m="";a.write("<label");a.writeControlData(l);var t=l.getTooltip_AsString();if(l.getLabelFor()){var f=sap.ui.getCore().byId(l.getLabelFor());a.write(" for=\"");if(f&&f.getIdForLabel){a.write(f.getIdForLabel());}else{a.write(l.getLabelFor());}a.write("\"");if(f&&f.getRequired&&f.getRequired()===true){a.addClass('sapUiLblReq');}if((!t||t=="")&&f&&f.getTooltip_AsString()&&f.getTooltip_AsString()!=""){t=f.getTooltip_AsString();}}if(t){a.writeAttributeEscaped('title',t);}a.addClass("sapUiLbl");if(l.getDesign()==sap.ui.commons.LabelDesign.Bold){a.addClass("sapUiLblEmph");}var b=l.getTextDirection();if(b){a.writeAttribute("dir",b);}var c=l.getTextAlign();if(c){m+="text-align:"+r.getTextAlign(c,b)+";";}var w=l.getWidth();if(w){m+="width:"+w+";";}a.writeAttribute("style",m);a.writeClasses();a.write(">");if(l.getIcon()){this.writeImgHtml(a,l);}if(l.getText()){if(!l.getIcon()){a.writeEscaped(l.getText());}else{a.write("<span class=\"sapUiLblTxt\">");a.writeEscaped(l.getText());a.write("</span>");}}a.write("</label>");};
+sap.ui.commons.LabelRenderer.writeImgHtml=function(r,l){var a=r;var i=l.getIcon();var c=r.getConfiguration();a.write("<img");a.writeAttributeEscaped("src",i);a.addClass("sapUiLblIco");if(l.getTextDirection()=="RTL"||(l.getTextDirection()=="Inherit"&&c.getRTL())){a.addClass("sapUiLblIcoR");}else{a.addClass("sapUiLblIcoL");}a.writeClasses();a.write("/>");};
+sap.ui.commons.LabelRenderer.getTextAlign=sap.ui.core.Renderer.getTextAlign;

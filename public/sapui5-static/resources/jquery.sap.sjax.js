@@ -1,0 +1,6 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+ * 
+ * (c) Copyright 2009-2012 SAP AG. All rights reserved
+ */
+jQuery.sap.declare("jquery.sap.sjax",false);(function(){jQuery.sap.sjaxSettings={complexResult:true,fallback:undefined};jQuery.sap.sjax=function a(o){var s=jQuery.extend(true,{},jQuery.sap.sjaxSettings,o,{async:false,success:function(f,t,x){r={success:true,data:f,status:t,statusCode:x&&x.status};},error:function(x,t,f){r={success:false,data:undefined,status:t,error:f,statusCode:x.status};}});var r=undefined;jQuery.ajax(s);if(!s.complexResult){return r.success?r.data:s.fallback;}return r;};jQuery.sap.syncHead=function(u){return jQuery.sap.sjax({type:'HEAD',url:u}).success;};jQuery.sap.syncGet=function b(u,f,s){return jQuery.sap.sjax({url:u,data:f,type:'GET',dataType:s||'text'});};jQuery.sap.syncPost=function c(u,f,s){return jQuery.sap.sjax({url:u,data:f,type:'POST',dataType:s||'text'});};jQuery.sap.syncGetText=function d(u,f,g){return jQuery.sap.sjax({url:u,data:f,type:'GET',dataType:'text',fallback:g,complexResult:(arguments.length<3)});};jQuery.sap.syncGetJSON=function e(u,f,g){return jQuery.sap.sjax({url:u,data:f||null,type:'GET',dataType:'json',fallback:g,complexResult:(arguments.length<3)});};}());

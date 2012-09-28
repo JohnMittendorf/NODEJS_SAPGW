@@ -1,0 +1,6 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+ * 
+ * (c) Copyright 2009-2012 SAP AG. All rights reserved
+ */
+jQuery.sap.declare("sap.ui.ux3.library");jQuery.sap.require("sap.ui.core.Core");jQuery.sap.require("sap.ui.core.library");jQuery.sap.require("sap.ui.commons.library");sap.ui.getCore().initLibrary({name:"sap.ui.ux3",dependencies:["sap.ui.core","sap.ui.commons"],types:["sap.ui.ux3.FeederType","sap.ui.ux3.FollowActionState"],interfaces:["sap.ui.ux3.DataSetView"],controls:["sap.ui.ux3.DataSet","sap.ui.ux3.DataSetSimpleView","sap.ui.ux3.Exact","sap.ui.ux3.ExactArea","sap.ui.ux3.ExactBrowser","sap.ui.ux3.ExactList","sap.ui.ux3.Feed","sap.ui.ux3.FeedChunk","sap.ui.ux3.Feeder","sap.ui.ux3.NavigationBar","sap.ui.ux3.Overlay","sap.ui.ux3.OverlayContainer","sap.ui.ux3.Shell","sap.ui.ux3.ThingInspector","sap.ui.ux3.ToolPopup"],elements:["sap.ui.ux3.DataSetItem","sap.ui.ux3.ExactAttribute","sap.ui.ux3.NavigationItem","sap.ui.ux3.ThingAction","sap.ui.ux3.ThingGroup"],version:"1.4.3"});jQuery.sap.declare("sap.ui.ux3.FeederType");sap.ui.ux3.FeederType={Large:"Large",Medium:"Medium",Comment:"Comment"};jQuery.sap.declare("sap.ui.ux3.FollowActionState");sap.ui.ux3.FollowActionState={Follow:"Follow",Hold:"Hold",Default:"Default"};

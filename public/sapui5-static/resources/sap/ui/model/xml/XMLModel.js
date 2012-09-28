@@ -1,0 +1,28 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+ * 
+ * (c) Copyright 2009-2012 SAP AG. All rights reserved
+ */
+jQuery.sap.declare("sap.ui.model.xml.XMLModel");jQuery.sap.require("sap.ui.model.Model");jQuery.sap.require("sap.ui.model.xml.XMLPropertyBinding");jQuery.sap.require("sap.ui.model.xml.XMLListBinding");jQuery.sap.require("sap.ui.model.xml.XMLTreeBinding");jQuery.sap.require("jquery.sap.xml");
+sap.ui.model.xml.XMLModel=function(d){sap.ui.model.Model.apply(this,arguments);this.oNameSpaces=null;if(typeof d=="string"){this.loadData(d);}else if(d&&d.documentElement){this.setData(d);}};
+sap.ui.model.xml.XMLModel.prototype=jQuery.sap.newObject(sap.ui.model.Model.prototype);sap.ui.base.Object.defineClass("sap.ui.model.xml.XMLModel",{baseType:"sap.ui.model.Model",publicMethods:["loadData","setData","getData","setXML","getXML","setNameSpace"]});
+sap.ui.model.xml.XMLModel.prototype.setXML=function(x){var o=jQuery.sap.parseXML(x);if(o.parseError.errorCode!=0){var p=o.parseError;jQuery.sap.log.fatal("The following problem occurred: XML parse Error for "+p.url+" code: "+p.errorCode+" reason: "+p.reason+" src: "+p.srcText+" line: "+p.line+" linepos: "+p.linepos+" filepos: "+p.filepos);this.fireParseError({url:p.url,errorCode:p.errorCode,reason:p.reason,srcText:p.srcText,line:p.line,linepos:p.linepos,filepos:p.filepos});}this.setData(o);};
+sap.ui.model.xml.XMLModel.prototype.getXML=function(){return jQuery.sap.serializeXML(this.oData);};
+sap.ui.model.xml.XMLModel.prototype.getData=function(){return this.oData;};
+sap.ui.model.xml.XMLModel.prototype.setData=function(d){this.oData=d;this.checkUpdate();};
+sap.ui.model.xml.XMLModel.prototype.loadData=function(u,p,a,t){var b=this;if(a!==false){a=true;}if(!t){t="GET";}this.fireRequestSent({url:u,type:t,async:a,info:"cache=false"});jQuery.ajax({url:u,async:a,dataType:'xml',data:p,type:t,success:function(d){if(!d){jQuery.sap.log.fatal("The following problem occurred: No data was retrieved by service: "+u);}b.setData(d);b.fireRequestCompleted({url:u,type:t,async:a,info:"cache=false"});},error:function(X,c,e){jQuery.sap.log.fatal("The following problem occurred: "+c,X.responseText+","+X.status+","+X.statusText);b.fireRequestCompleted({url:u,type:t,async:a,info:"cache=false"});b.fireRequestFailed({message:c,statusCode:X.status,statusText:X.statusText,responseText:X.responseText});}});};
+sap.ui.model.xml.XMLModel.prototype.setNameSpace=function(n,p){if(!p){p="";}if(!this.oNameSpaces){this.oNameSpaces={};}this.oNameSpaces[p]=n;};
+sap.ui.model.xml.XMLModel.prototype.checkUpdate=function(){var b=this.aBindings.slice(0);jQuery.each(b,function(i,o){o.checkUpdate();});};
+sap.ui.model.xml.XMLModel.prototype.bindProperty=function(p,c){var b=new sap.ui.model.xml.XMLPropertyBinding(this,p,c);return b;};
+sap.ui.model.xml.XMLModel.prototype.bindList=function(p,c,s,f){var b=new sap.ui.model.xml.XMLListBinding(this,p,c,s,f);return b;};
+sap.ui.model.xml.XMLModel.prototype.bindTree=function(p,c){var b=new sap.ui.model.xml.XMLTreeBinding(this,p,c);return b;};
+sap.ui.model.xml.XMLModel.prototype.createBindingContext=function(p,c,f){if(!c){c="";}if(!jQuery.sap.startsWith(p,"/")){p=c+"/"+p;}f(p);};
+sap.ui.model.xml.XMLModel.prototype.destroyBindingContext=function(c){};
+sap.ui.model.xml.XMLModel.prototype.setProperty=function(p,v,c){var o=p.substring(0,p.lastIndexOf("/")),s=p.substr(p.lastIndexOf("/")+1);var a;if(s.indexOf("@")==0){a=this._getObject(o,c);a[0].setAttribute(s.substr(1),v);}else{a=this._getObject(p,c);jQuery(a[0]).text(v);}this.checkUpdate();};
+sap.ui.model.xml.XMLModel.prototype.getProperty=function(p,c){var r=this._getObject(p,c);if(r&&typeof r!="string"){r=jQuery(r[0]).text();}return r;};
+sap.ui.model.xml.XMLModel.prototype._getObject=function(p,c){var r=this.oData.documentElement;if(!r){return null;}var n=[r];if(c){if(typeof c=="string"){n=this._getObject(c);if(!n||n.length==0||!n[0]){return null;}}else{n=[c];}}if(!p){return n;}var a=p.split("/"),s,i=0;if(!a[0]){n=r;i++;}if(!c||typeof c!="string"){n=n.length!=undefined?n[0]:n;n=n?[n]:null;}while(n&&n.length>0&&a[i]){s=a[i];if(s.indexOf("@")==0){n=this._getAttribute(n[0],s.substr(1));}else if(s=="text()"){n=jQuery(n[0]).text();}else if(isNaN(s)){n=this._getChildElementsByTagName(n[0],s);}else{n=[n[s]];}i++;}return n;};
+sap.ui.model.xml.XMLModel.prototype._getAttribute=function(n,s){if(!this.oNameSpaces||s.indexOf(":")==-1){return n.getAttribute(s);}var a=this._getNameSpace(s),l=this._getLocalName(s);if(n.getAttributeNS){return n.getAttributeNS(a,l);}else{if(!this.oDocNSPrefixes){this.oDocNSPrefixes=this._getDocNSPrefixes();}var p=this.oDocNSPrefixes[a];s=(p?p+":":"")+l;return n.getAttribute(s);}};
+sap.ui.model.xml.XMLModel.prototype._getChildElementsByTagName=function(n,s){var c=n.childNodes,r=[];if(this.oNameSpaces){var a=this._getNameSpace(s),l=this._getLocalName(s),b;jQuery.each(c,function(i,o){b=o.localName||o.baseName;if(o.nodeType==1&&b==l&&o.namespaceURI==a){r.push(o);}});}else{jQuery.each(c,function(i,o){if(o.nodeType==1&&o.nodeName==s){r.push(o);}});}return r;};
+sap.ui.model.xml.XMLModel.prototype._getNameSpace=function(n){var c=n.indexOf(":"),p="";if(c>0){p=n.substr(0,c);}return this.oNameSpaces[p];};
+sap.ui.model.xml.XMLModel.prototype._getLocalName=function(n){var c=n.indexOf(":"),l=n;if(c>0){l=n.substr(c+1);}return l;};
+sap.ui.model.xml.XMLModel.prototype._getDocNSPrefixes=function(){var p={},d=this.oData&&this.oData.documentElement;if(!d){return p;}var a=d.attributes;jQuery.each(a,function(i,o){var n=o.name,v=o.value;if(n=="xmlns"){p[v]="";}else if(n.indexOf("xmlns")==0){p[v]=n.substr(6);}});return p;};

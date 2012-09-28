@@ -1,0 +1,15 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+ * 
+ * (c) Copyright 2009-2012 SAP AG. All rights reserved
+ */
+jQuery.sap.declare("sap.ui.core.format.NumberFormat");jQuery.sap.require("sap.ui.core.LocaleData");
+sap.ui.core.format.NumberFormat=function(f){throw new Error();};
+sap.ui.core.format.NumberFormat.prototype=jQuery.sap.newObject(sap.ui.base.Object.prototype);sap.ui.core.format.NumberFormat.oDefaultIntegerFormat={minIntegerDigits:1,maxIntegerDigits:99,minFractionDigits:0,maxFractionDigits:0,groupingEnabled:false,groupingSeparator:",",decimalSeparator:".",plusSign:"+",minusSign:"-",isInteger:true};sap.ui.core.format.NumberFormat.oDefaultFloatFormat={minIntegerDigits:1,maxIntegerDigits:99,minFractionDigits:0,maxFractionDigits:99,groupingEnabled:true,groupingSeparator:",",decimalSeparator:".",plusSign:"+",minusSign:"-",isInteger:false};
+sap.ui.core.format.NumberFormat.getInstance=function(f,l){return this.getFloatInstance(f,l);};
+sap.ui.core.format.NumberFormat.getFloatInstance=function(f,l){var o=this.createInstance(f,l);o.oFormatOptions=jQuery.extend(false,{},this.oDefaultFloatFormat,this.getLocaleFormatOptions(o.oLocaleData),f);return o;};
+sap.ui.core.format.NumberFormat.getIntegerInstance=function(f,l){var o=this.createInstance(f,l);o.oFormatOptions=jQuery.extend(false,{},this.oDefaultIntegerFormat,this.getLocaleFormatOptions(o.oLocaleData),f);return o;};
+sap.ui.core.format.NumberFormat.createInstance=function(f,l){var o=jQuery.sap.newObject(this.prototype);if(f instanceof sap.ui.core.Locale){l=f;f=undefined;}if(!l){l=sap.ui.getCore().getConfiguration().getFormatSettings().getFormatLocale();}o.oLocale=l;o.oLocaleData=sap.ui.core.LocaleData.getInstance(l);return o;};
+sap.ui.core.format.NumberFormat.getLocaleFormatOptions=function(l){return{plusSign:l.getNumberSymbol("plusSign"),minusSign:l.getNumberSymbol("minusSign"),decimalSeparator:l.getNumberSymbol("decimal"),groupingSeparator:l.getNumberSymbol("group")}};
+sap.ui.core.format.NumberFormat.prototype.format=function(v){var n=""+v,i="",f="",g="",r="",p=0,l=0,b=v<0,d=-1,o=this.oFormatOptions;if(b){n=n.substr(1);}d=n.indexOf(".");if(d>-1){i=n.substr(0,d);f=n.substr(d+1);}else{i=n}if(i.length<o.minIntegerDigits){i=jQuery.sap.padLeft(i,"0",o.minIntegerDigits);}else if(i.length>o.maxIntegerDigits){i=jQuery.sap.padLeft("","?",o.maxIntegerDigits);}if(f.length<o.minFractionDigits){f=jQuery.sap.padRight(f,"0",o.minFractionDigits);}else if(f.length>o.maxFractionDigits){f=f.substr(0,o.maxFractionDigits);}l=i.length;if(o.groupingEnabled&&l>3){p=l%3||3;g=i.substr(0,p);while(p<i.length){g+=o.groupingSeparator;g+=i.substr(p,3);p+=3;}i=g;}if(b){r=o.minusSign;}r+=i;if(f){r+=o.decimalSeparator+f;}if(sap.ui.getCore().getConfiguration().getOriginInfo()){r=new String(r);r.originInfo={source:"Common Locale Data Repository",locale:this.oLocale.toString()};}return r;};
+sap.ui.core.format.NumberFormat.prototype.parse=function(v){var o=this.oFormatOptions,r="[^0-9\\-"+o.decimalSeparator+"]",a=new RegExp(r,"g"),b=0;v=v.replace(a,"");v=v.replace(o.decimalSeparator,".");if(o.isInteger){b=parseInt(v,10);}else{b=parseFloat(v);}return b;};
