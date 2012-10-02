@@ -44,7 +44,7 @@ var button2 = new Button({
 });
 
 var toolbar = new Toolbar({ 
-    items: [button, button2]
+    items: [button] [button2]
 });
 
 // Create a master table with sales orders 
