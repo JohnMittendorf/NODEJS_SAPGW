@@ -1,0 +1,1 @@
+{"ts":1349180661509,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"{\n  \"name\": \"gurenius_nodejs_sapgw\",\n  \"version\": \"0.0.1\",\n  \"private\": true,\n  \"dependencies\": {\n    //\"ejs\": \"*\",\n    //\"xml2js\": \"*\",\n    \"express\": \"3.x\"\n    \n  }\n}\n"]],"start1":0,"start2":0,"length1":0,"length2":169}]],"length":169}

@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "ejs": "*",
-    "express": "*",
-    "xml2js": "*"
+    //"ejs": "*",
+    //"xml2js": "*",
+    "express": "3.x"
+    
   }
 }

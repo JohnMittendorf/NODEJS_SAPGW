@@ -24,19 +24,27 @@ var salesOrderService =
     salesOrderModel = new ODataModel(salesOrderService, asJson),
     salesOrderCollection = "SalesOrderCollection";
 
-// Create a button to request an Excel workbook from server 
+// Create a button 
 var button = new Button({
-    text: "Download as Excel",
+    text: "Example from allthatjs.com.",
     icon: 'images/excel.png',
     iconFirst: false,
     height: '24px',
     press: function () {
-        window.location = "/workbook"
+        window.location = "http://allthatjs.com/2012/03/21/node-js-on-azure-calling-sap-gateway"
+    }
+});
+
+var button2 = new Button({
+    text: "Gateway XML source",
+    height: '24px',
+    press: function () {
+        window.location = "/sap/opu/sdata/IWFND/SALESORDER/SalesOrderCollection"
     }
 });
 
 var toolbar = new Toolbar({ 
-    items: [button]
+    items: [button] [button2]
 });
 
 // Create a master table with sales orders 
