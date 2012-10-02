@@ -10,3 +10,11 @@ git push -u origin master
 
 remove deleted files:
 git add -u 
+
+----------
+
+
+http://support.cloud9ide.com/entries/21468947-deploy-your-app-to-heroku-using-the-cloud9-console
+git remote add heroku-target git@heroku.com:gurenius-nodejs-sapgw.git
+
+git push heroku-target master
