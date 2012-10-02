@@ -1,0 +1,3 @@
+{"ts":1349183395682,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1349183429301,"patch":[[{"diffs":[[1,"\r\n\r\ngit add . \r\n\r\ngit commit -m \"Comment\"\r\n\r\ngit push -u origin master\r\n\r\n"]],"start1":0,"start2":0,"length1":0,"length2":74}]],"length":74,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1349185160899,"patch":[[{"diffs":[[0,"n master\r\n\r\n"],[1,"----------\r\n\r\nremove deleted files:\r\ngit add -u "]],"start1":62,"start2":62,"length1":12,"length2":60}]],"length":122,"saved":false}
