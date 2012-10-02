@@ -5,8 +5,9 @@ var http = require('http'),
     app = express(),
     port = process.env.PORT;
 
+
 // The SalesOrder service requires authentication
-// get the username/password from the SCN page. 
+// get the username/password from the SCN page.
 var username = 'GW@ESW',
     password = 'ESW4GW';
 
@@ -38,13 +39,13 @@ function proxy(user_request, user_response) {
   });
 }
 
-// Action: Generate an Excel workbook containing SalesOrders on the fly  
+// Action: Generate an Excel workbook containing SalesOrders on the fly
 function workbook(req, res) {
 
   // We will fetch the SalesOrderCollection from SAP Gateway
   sapgw.path = '/sap/opu/sdata/IWFND/SALESORDER/SalesOrderCollection';
 
-  // Kick-off by fetching the SalesOrderCollection..       
+  // Kick-off by fetching the SalesOrderCollection..
   http.get(sapgw, function (sapgw_response) {
     var xml = '';
 
@@ -55,7 +56,7 @@ function workbook(req, res) {
       xml += chunk
     });
 
-    // The 'end' event fires when the SAP Gateway response is done 
+    // The 'end' event fires when the SAP Gateway response is done
     // We can start processing the xml string...
     sapgw_response.on("end", function () {
 
@@ -69,7 +70,7 @@ function workbook(req, res) {
       // The 'end' event fires when the parser is done.
       // The resulting JS object is passed as parameter.
       parser.on('end', function (result) {
-        // The result parameter is a complete representation 
+        // The result parameter is a complete representation
         // of the parsed XML string.
         // We need to extract the values we need to render the workbook
         var rows = [],
@@ -78,28 +79,28 @@ function workbook(req, res) {
         // in the Excel list
         columns = ['SalesOrderID', 'CustomerName', 'NetSum', 'Tax', 'TotalSum'];
 
-        // the value of result['atom:entry'] is an array of objects, 
+        // the value of result['atom:entry'] is an array of objects,
         // representing 's in the XML string.
         // Each entry represents a SalesOrder
 
         result['atom:entry'].forEach(function (entry) {
           var row = {},
-            // properties points to the parsed properties 
+            // properties points to the parsed properties
             properties = entry['atom:content']['m:properties'];
 
 
           columns.forEach(function (property) {
             // get the value for the property
-            row[property] = properties['d:' + property]['#'] || 
+            row[property] = properties['d:' + property]['#'] ||
                             properties['d:' + property];
           });
 
-          // add it to the rows 
+          // add it to the rows
           rows.push(row);
 
         });
 
-        // We're done processing the response and have extracted all data required to 
+        // We're done processing the response and have extracted all data required to
         // create the workbook.
         // First, include the proper HTTP headers
         res.header('Content-Type', 'text/html');
@@ -127,7 +128,7 @@ function workbook(req, res) {
   });
 };
 
-// Action: perform a redirect to the home page (index.html)   
+// Action: perform a redirect to the home page (index.html)
 function home(req, res) {
   res.redirect('/index.html')
 }
