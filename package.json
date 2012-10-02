@@ -1,10 +1,10 @@
 {
   "name": "gurenius_nodejs_sapgw",
   "version": "0.0.1",
-  "private": true;
+  "private": true,
   "dependencies": {
     "ejs": "*",
     "express": "*",
-    "xml2js: "*",
+    "xml2js": "*"
   }
 }
