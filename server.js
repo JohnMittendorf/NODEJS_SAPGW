@@ -35,15 +35,17 @@ function home(req, res) {
 }
 
 // Now we will set up the routing for the server...
-// Look if the request is for a static file in the public directory
-// this is where the client side html, css, js and SAPUI5 resources are located
-app.use(express.static(__dirname + '/public'));
 
 // If you just call the server (root), redirect to homepage
 app.get('/', home);
 
 // Requests starting '/sap/' are proxied to the SAP Gateway
 app.get('/sap/*', proxy);
+
+// Look if the request is for a static file in the public directory
+// this is where the client side html, css, js and SAPUI5 resources are located
+app.use(express.static(__dirname + '/public'));
+
 
 // Routes are set up,
 // Now start the app server...
