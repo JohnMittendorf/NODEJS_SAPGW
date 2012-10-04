@@ -44,7 +44,7 @@ app.get('/sap/*', proxy);
 
 // Look if the request is for a static file in the public directory
 // this is where the client side html, css, js and SAPUI5 resources are located
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public', { maxAge: 120 }));
 
 
 // Routes are set up,
