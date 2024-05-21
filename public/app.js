@@ -17,12 +17,13 @@ var ODataModel = sap.ui.model.odata.ODataModel,
 // which will proxy the calls to SAP GW
 // This way, we comply with Same Origin Policy of the browser. 
 var salesOrderService =
-        "/sap/opu/sdata/IWFND/SALESORDER",
+        //"/sap/opu/sdata/IWFND/SALESORDER",
+        "/sap/opu/odata/sap/ZPTP_E1203_GWP_ENGINE_LIST_SRV",
 
     // SAP Gateway only supports XML, so don't use JSON
     asJson = false,
     salesOrderModel = new ODataModel(salesOrderService, asJson),
-    salesOrderCollection = "SalesOrderCollection";
+    salesOrderCollection = "ZPTP_E1203_ETS_ENGINE_LIST?sap-client=300&$filter=FunctionalLocation%20eq%20%27EUNCG-CMPR%27";
 
 // Create a button 
 var button = new Button({
@@ -39,7 +40,7 @@ var button2 = new Button({
     text: "Gateway XML source",
     height: '24px',
     press: function () {
-        window.location = "/sap/opu/sdata/IWFND/SALESORDER/SalesOrderCollection"
+        window.location = "/sap/opu/odata/sap/LORD_ODATA_ORDER_SRV/Header"
     }
 });
 
@@ -59,11 +60,11 @@ var salesOrders = new DataTable({
 
 // define the relevant column options
 var salesOrderColumns = [
-    { header: "Sales Order ID", value: "{SalesOrderID}", width: '100px' },
-    { header: "Customer Name", value: "{CustomerName}", width: '100%' },
-    { header: "Net", value: "{NetSum}", width: '100px', hAlign: Right },
-    { header: "Tax", value: "{Tax}", width: '100px', hAlign: Right },
-    { header: "Total", value: "{TotalSum}", width: '100px', hAlign: Right }
+    { header: "Sales Order ID", value: "{Equipment}", width: '100px' },
+    { header: "Customer Name", value: "{EquipmentDesc}", width: '100%' },
+    { header: "Net", value: "{SerialNumber}", width: '100px', hAlign: Right },
+    { header: "Tax", value: "{TechnicalObjectType}", width: '100px', hAlign: Right },
+    { header: "Total", value: "{FunctionalLocation}", width: '100px', hAlign: Right }
 ];
 
 // create the columns

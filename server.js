@@ -4,10 +4,10 @@ var http = require('http'),
     port = process.env.PORT;
 
 // The SalesOrder service requires authentication
-var username = 'GW@ESW',
-    password = 'ESW4GW';
+var username = 'xxx',
+    password = 'xxx';
 
-var sapgw = {   host: 'gw.esworkplace.sap.com',
+var sapgw = {   host: 'sap-dev.energy.sug.pri',
                 headers: { 'Authorization': 'Basic ' + new Buffer(username + ':' + password).toString('base64') }
             };
 
